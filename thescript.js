@@ -22,3 +22,15 @@
 
       */
     
+      // creating container for the search space
+
+      let searchpage= document.querySelector("div")
+      searchpage.classList.add("googlePageStyle")
+      let pixname = document.createElement("input")
+      pixname.type = "text"
+      pixname.placeholder = "Google your image here"
+      let  searchBtn = document.createElement("button")
+      searchpage.innerHTML = "Search"
+      searchpage.appendChild(pixname)
+      searchpage.appendChild(searchBtn)
+      
