@@ -24,13 +24,57 @@
     
       // creating container for the search space
 
-      let searchpage= document.querySelector("div")
+      let searchpage = document.querySelector("main")
       searchpage.classList.add("googlePageStyle")
       let pixname = document.createElement("input")
       pixname.type = "text"
       pixname.placeholder = "Google your image here"
       let  searchBtn = document.createElement("button")
-      searchpage.innerHTML = "Search"
+      searchBtn.innerHTML = "Search"
       searchpage.appendChild(pixname)
       searchpage.appendChild(searchBtn)
       
+      // web page with picures
+      let pixpage = document.querySelector("div")
+      let  deletedImgArray =[]
+      
+      
+ 
+
+      // creating the search
+
+      searchBtn.addEventListener("click", async (e)=>{
+
+      let response = await fetch('http://www.splashbase.co/api/v1/images/search?query=' + pixname.value)
+     
+      if(response.ok)
+      {
+        searchpage.style.display ="none"
+       let pixarray = await response.json()
+       
+        pixpage.classList.add("pictureDisplayStyle")
+        
+        for(i=0; i < pixarray.images.length;i++)
+        {
+          let picture = document.createElement("img")
+           picture.src = pixarray.images[i].url
+           picture.addEventListener("click",(e)=>{
+                console.log(e)
+                deletedImgArray.push(e.currentTarget) 
+                e.currentTarget.classList.add("imgContainerStyle")
+
+           })
+           pixpage.appendChild(picture)
+        
+        }
+
+      }
+      else{
+        console.log(response.status)
+      }
+
+
+      
+
+      
+      })
